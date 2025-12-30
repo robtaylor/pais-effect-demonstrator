@@ -7,16 +7,16 @@
 ## 🔴 High Priority
 
 ### Documentation
-- [ ] Add `docs/TROUBLESHOOTING.md` with common issues and solutions
-- [ ] Create `references/patent-summary.md` with key patent excerpts and analysis
+- [x] Add `docs/TROUBLESHOOTING.md` with common issues and solutions
+- [x] Create `references/patent-summary.md` with key patent excerpts and analysis
 - [ ] Add wiring photos/diagrams to Phase 1 sensor documentation
-- [ ] Document QMC5883L differences (common HMC5883L clone)
+- [x] Document QMC5883L differences (common HMC5883L clone)
 
 ### Safety
-- [ ] Add emergency contact template to SAFETY.md
+- [x] Add emergency contact template to SAFETY.md
 - [ ] Create printable safety checklist (PDF)
-- [ ] Add first aid specific guidance for electrical burns
-- [ ] Document lock-out/tag-out procedure for HV system
+- [x] Add first aid specific guidance for electrical burns
+- [x] Document lock-out/tag-out procedure for HV system
 
 ### Hardware
 - [ ] Create KiCad schematic for piezo driver circuit
