@@ -48,7 +48,130 @@ The HMC5883L (and pin-compatible QMC5883L) is a 3-axis magnetometer:
 - Resolution insufficient for detecting classical fields
 - Useful for detecting strong anomalies and environmental noise
 
-### 1.2 I²C Address Conflict Resolution
+### 1.2 QMC5883L Compatibility
+
+**Important:** Many "HMC5883L" breakout boards sold today actually contain the QMC5883L chip, a Chinese clone that is NOT software-compatible with the original Honeywell HMC5883L.
+
+#### How to Identify Your Chip
+
+| Feature | HMC5883L (Genuine) | QMC5883L (Clone) |
+|---------|-------------------|------------------|
+| I²C Address | 0x1E | 0x0D |
+| ID Register | 0x0A returns "H43" | 0x0D returns 0xFF |
+| Manufacturer | Honeywell | QST Corporation |
+| Chip marking | HMC5883L | QMC5883L or DA5883 |
+| Max sample rate | 75 Hz | 200 Hz |
+
+**Visual identification:** The chip marking is very small. Use a magnifying glass or phone camera zoom to read it.
+
+#### QMC5883L Initialization Code
+
+If you have QMC5883L sensors, replace the `initHMC5883L()` function with:
+
+```cpp
+#define QMC_ADDRESS       0x0D    // QMC5883L I²C address
+
+bool initQMC5883L() {
+    // Soft reset
+    Wire.beginTransmission(QMC_ADDRESS);
+    Wire.write(0x0A);  // Control Register 2
+    Wire.write(0x80);  // Soft reset
+    Wire.endTransmission();
+    delay(10);
+
+    // Set mode: continuous, 200Hz, 8G range, 512 oversampling
+    Wire.beginTransmission(QMC_ADDRESS);
+    Wire.write(0x09);  // Control Register 1
+    Wire.write(0x1D);  // OSR=512, RNG=8G, ODR=200Hz, MODE=Continuous
+    Wire.endTransmission();
+
+    // Enable interrupt pin (optional, shows data ready)
+    Wire.beginTransmission(QMC_ADDRESS);
+    Wire.write(0x0B);  // SET/RESET Period Register
+    Wire.write(0x01);  // Recommended value
+    Wire.endTransmission();
+
+    delay(10);
+    return true;
+}
+
+void readQMC5883L(int16_t* x, int16_t* y, int16_t* z) {
+    Wire.beginTransmission(QMC_ADDRESS);
+    Wire.write(0x00);  // Start at data register
+    Wire.endTransmission();
+
+    Wire.requestFrom(QMC_ADDRESS, 6);
+
+    if (Wire.available() >= 6) {
+        // Data order: X_LSB, X_MSB, Y_LSB, Y_MSB, Z_LSB, Z_MSB
+        // Note: Different byte order than HMC5883L!
+        *x = Wire.read() | (Wire.read() << 8);
+        *y = Wire.read() | (Wire.read() << 8);
+        *z = Wire.read() | (Wire.read() << 8);
+    } else {
+        *x = *y = *z = 0;
+    }
+}
+```
+
+#### Register Differences Summary
+
+| Function | HMC5883L | QMC5883L |
+|----------|----------|----------|
+| I²C Address | 0x1E | 0x0D |
+| Data registers | 0x03-0x08 | 0x00-0x05 |
+| Data order | X, Z, Y (MSB first) | X, Y, Z (LSB first) |
+| Config register A | 0x00 | 0x09 |
+| Config register B | 0x01 | 0x0A |
+| Mode register | 0x02 | (in 0x09) |
+| Status register | 0x09 | 0x06 |
+| ID registers | 0x0A-0x0C ("H43") | None |
+
+#### Mixed Sensor Configurations
+
+If you have a mix of genuine HMC5883L and QMC5883L sensors, you can use both by:
+
+1. Detecting chip type during initialization (try HMC address first)
+2. Storing sensor type for each channel
+3. Using appropriate read function based on type
+
+```cpp
+enum SensorType { SENSOR_NONE, SENSOR_HMC5883L, SENSOR_QMC5883L };
+SensorType sensorTypes[3];
+
+void detectAndInitSensor(uint8_t channel) {
+    selectMuxChannel(channel);
+    delay(10);
+
+    // Try HMC5883L first (0x1E)
+    Wire.beginTransmission(0x1E);
+    if (Wire.endTransmission() == 0) {
+        if (initHMC5883L()) {
+            sensorTypes[channel] = SENSOR_HMC5883L;
+            Serial.print("Ch"); Serial.print(channel);
+            Serial.println(": HMC5883L detected");
+            return;
+        }
+    }
+
+    // Try QMC5883L (0x0D)
+    Wire.beginTransmission(0x0D);
+    if (Wire.endTransmission() == 0) {
+        if (initQMC5883L()) {
+            sensorTypes[channel] = SENSOR_QMC5883L;
+            Serial.print("Ch"); Serial.print(channel);
+            Serial.println(": QMC5883L detected");
+            return;
+        }
+    }
+
+    sensorTypes[channel] = SENSOR_NONE;
+    Serial.print("Ch"); Serial.print(channel);
+    Serial.println(": No sensor detected");
+}
+```
+
+### 1.3 I²C Address Conflict Resolution
 
 Multiple HMC5883L sensors have the same I²C address. Solutions:
 
