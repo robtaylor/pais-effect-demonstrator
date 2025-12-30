@@ -9,7 +9,7 @@
 ### Documentation
 - [x] Add `docs/TROUBLESHOOTING.md` with common issues and solutions
 - [x] Create `references/patent-summary.md` with key patent excerpts and analysis
-- [ ] Add wiring photos/diagrams to Phase 1 sensor documentation
+- [x] Add wiring photos/diagrams to Phase 1 sensor documentation
 - [x] Document QMC5883L differences (common HMC5883L clone)
 
 ### Safety
@@ -21,8 +21,8 @@
 ### Hardware
 - [ ] Create KiCad schematic for piezo driver circuit
 - [ ] Design simple PCB for sensor breakout/distribution
-- [ ] Add Cockcroft-Walton multiplier schematic (KiCad or SVG)
-- [ ] Document DIY fluxgate magnetometer option
+- [x] Add Cockcroft-Walton multiplier schematic (KiCad or SVG)
+- [x] Document DIY fluxgate magnetometer option
 
 ---
 
@@ -37,8 +37,8 @@
 - [ ] `diagrams/hv-clearances.svg` - Safety clearance zones
 
 ### Software
-- [ ] Extract full analysis module from docs (separate .py files)
-- [ ] Add real-time plotting script (matplotlib animation or pyqtgraph)
+- [x] Extract full analysis module from docs (separate .py files)
+- [x] Add real-time plotting script (matplotlib animation or pyqtgraph)
 - [ ] Create sensor calibration wizard script
 - [ ] Add data export to HDF5 format option
 - [ ] Implement automatic artifact detection
@@ -62,8 +62,8 @@
 ## 🟢 Low Priority / Nice to Have
 
 ### Documentation
-- [ ] Add glossary of terms
-- [ ] Create quick-start guide (single page)
+- [x] Add glossary of terms
+- [x] Create quick-start guide (single page)
 - [ ] Add FAQ section
 - [ ] Translate to other languages (German, Spanish, Mandarin)
 - [ ] Add video build guide links (when available)
@@ -118,7 +118,7 @@ These are extensions beyond the core experiment:
 
 - [ ] `docs/00-project-overview.md` may be redundant with README.md - consolidate
 - [ ] BOM prices are estimates from 2024 - need periodic updates
-- [ ] Arduino sketch assumes HMC5883L - QMC5883L needs different init sequence
+- [x] Arduino sketch assumes HMC5883L - QMC5883L needs different init sequence
 - [ ] Analysis scripts not yet tested with real experimental data
 
 ---
@@ -135,6 +135,19 @@ These are extensions beyond the core experiment:
 - [x] CONTRIBUTING guide
 - [x] MIT License
 - [x] .gitignore
+- [x] Troubleshooting guide
+- [x] Patent summary and analysis
+- [x] Emergency contact template
+- [x] First aid for electrical burns
+- [x] Lock-out/tag-out procedure
+- [x] QMC5883L documentation
+- [x] DIY fluxgate magnetometer guide
+- [x] Cockcroft-Walton multiplier documentation
+- [x] Sensor wiring diagram (SVG)
+- [x] Analysis module (separate Python files)
+- [x] Real-time plotting script
+- [x] Glossary of terms
+- [x] Phase 1 quick-start BOM
 
 ---
 

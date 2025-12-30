@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <title>Pais Effect Demonstrator - Sensor Wiring Diagram</title>
+  <desc>Wiring diagram for magnetometer array with TCA9548A multiplexer</desc>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    </marker>
+    <style>
+      .label { font-family: monospace; font-size: 12px; fill: #333; }
+      .title { font-family: sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+      .pin-label { font-family: monospace; font-size: 10px; fill: #666; }
+      .wire-power { stroke: #e74c3c; stroke-width: 2; fill: none; }
+      .wire-ground { stroke: #333; stroke-width: 2; fill: none; }
+      .wire-sda { stroke: #3498db; stroke-width: 2; fill: none; }
+      .wire-scl { stroke: #2ecc71; stroke-width: 2; fill: none; }
+      .wire-spi { stroke: #9b59b6; stroke-width: 2; fill: none; }
+      .component { fill: #f8f9fa; stroke: #333; stroke-width: 2; }
+      .chip { fill: #2c3e50; stroke: #333; stroke-width: 1; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">Sensor Array Wiring Diagram</text>
+
+  <!-- Legend -->
+  <g transform="translate(620, 50)">
+    <rect x="0" y="0" width="160" height="100" fill="#f5f5f5" stroke="#ccc" rx="5"/>
+    <text x="80" y="20" text-anchor="middle" class="label" font-weight="bold">Wire Colors</text>
+    <line x1="10" y1="35" x2="50" y2="35" class="wire-power"/>
+    <text x="60" y="40" class="pin-label">3.3V (Red)</text>
+    <line x1="10" y1="50" x2="50" y2="50" class="wire-ground"/>
+    <text x="60" y="55" class="pin-label">GND (Black)</text>
+    <line x1="10" y1="65" x2="50" y2="65" class="wire-sda"/>
+    <text x="60" y="70" class="pin-label">SDA (Blue)</text>
+    <line x1="10" y1="80" x2="50" y2="80" class="wire-scl"/>
+    <text x="60" y="85" class="pin-label">SCL (Green)</text>
+  </g>
+
+  <!-- Arduino Due -->
+  <g transform="translate(50, 150)">
+    <rect x="0" y="0" width="120" height="200" class="component" rx="5"/>
+    <rect x="10" y="10" width="100" height="30" class="chip" rx="3"/>
+    <text x="60" y="30" text-anchor="middle" fill="#fff" class="label">Arduino Due</text>
+
+    <!-- Pin labels -->
+    <text x="125" y="70" class="pin-label">3.3V</text>
+    <text x="125" y="90" class="pin-label">GND</text>
+    <text x="125" y="110" class="pin-label">SDA (20)</text>
+    <text x="125" y="130" class="pin-label">SCL (21)</text>
+    <text x="125" y="160" class="pin-label">Pin 4 (CS)</text>
+    <text x="125" y="180" class="pin-label">SPI</text>
+
+    <!-- Connection points -->
+    <circle cx="120" cy="66" r="4" fill="#e74c3c"/>
+    <circle cx="120" cy="86" r="4" fill="#333"/>
+    <circle cx="120" cy="106" r="4" fill="#3498db"/>
+    <circle cx="120" cy="126" r="4" fill="#2ecc71"/>
+    <circle cx="120" cy="156" r="4" fill="#9b59b6"/>
+    <circle cx="120" cy="176" r="4" fill="#9b59b6"/>
+  </g>
+
+  <!-- TCA9548A Multiplexer -->
+  <g transform="translate(280, 120)">
+    <rect x="0" y="0" width="140" height="180" class="component" rx="5"/>
+    <rect x="10" y="10" width="120" height="30" class="chip" rx="3"/>
+    <text x="70" y="30" text-anchor="middle" fill="#fff" class="label">TCA9548A</text>
+    <text x="70" y="50" text-anchor="middle" class="pin-label">I²C Multiplexer</text>
+
+    <!-- Input pins (left side) -->
+    <text x="-5" y="80" text-anchor="end" class="pin-label">VCC</text>
+    <text x="-5" y="100" text-anchor="end" class="pin-label">GND</text>
+    <text x="-5" y="120" text-anchor="end" class="pin-label">SDA</text>
+    <text x="-5" y="140" text-anchor="end" class="pin-label">SCL</text>
+
+    <circle cx="0" cy="76" r="4" fill="#e74c3c"/>
+    <circle cx="0" cy="96" r="4" fill="#333"/>
+    <circle cx="0" cy="116" r="4" fill="#3498db"/>
+    <circle cx="0" cy="136" r="4" fill="#2ecc71"/>
+
+    <!-- Output channels (right side) -->
+    <text x="145" y="80" class="pin-label">SD0/SC0</text>
+    <text x="145" y="110" class="pin-label">SD1/SC1</text>
+    <text x="145" y="140" class="pin-label">SD2/SC2</text>
+
+    <circle cx="140" cy="76" r="4" fill="#3498db"/>
+    <circle cx="140" cy="86" r="4" fill="#2ecc71"/>
+    <circle cx="140" cy="106" r="4" fill="#3498db"/>
+    <circle cx="140" cy="116" r="4" fill="#2ecc71"/>
+    <circle cx="140" cy="136" r="4" fill="#3498db"/>
+    <circle cx="140" cy="146" r="4" fill="#2ecc71"/>
+
+    <!-- Address note -->
+    <text x="70" y="170" text-anchor="middle" class="pin-label">Addr: 0x70</text>
+    <text x="70" y="182" text-anchor="middle" class="pin-label">(A0-A2 to GND)</text>
+  </g>
+
+  <!-- HMC5883L Sensor 1 -->
+  <g transform="translate(520, 60)">
+    <rect x="0" y="0" width="100" height="80" class="component" rx="5"/>
+    <rect x="10" y="10" width="80" height="25" class="chip" rx="3"/>
+    <text x="50" y="27" text-anchor="middle" fill="#fff" class="label">HMC5883L</text>
+    <text x="50" y="50" text-anchor="middle" class="pin-label">Sensor #1</text>
+    <text x="50" y="65" text-anchor="middle" class="pin-label">5cm position</text>
+
+    <circle cx="0" cy="20" r="4" fill="#e74c3c"/>
+    <circle cx="0" cy="35" r="4" fill="#333"/>
+    <circle cx="0" cy="50" r="4" fill="#3498db"/>
+    <circle cx="0" cy="65" r="4" fill="#2ecc71"/>
+
+    <text x="-5" y="24" text-anchor="end" class="pin-label">VCC</text>
+    <text x="-5" y="39" text-anchor="end" class="pin-label">GND</text>
+    <text x="-5" y="54" text-anchor="end" class="pin-label">SDA</text>
+    <text x="-5" y="69" text-anchor="end" class="pin-label">SCL</text>
+  </g>
+
+  <!-- HMC5883L Sensor 2 -->
+  <g transform="translate(520, 170)">
+    <rect x="0" y="0" width="100" height="80" class="component" rx="5"/>
+    <rect x="10" y="10" width="80" height="25" class="chip" rx="3"/>
+    <text x="50" y="27" text-anchor="middle" fill="#fff" class="label">HMC5883L</text>
+    <text x="50" y="50" text-anchor="middle" class="pin-label">Sensor #2</text>
+    <text x="50" y="65" text-anchor="middle" class="pin-label">10cm position</text>
+
+    <circle cx="0" cy="20" r="4" fill="#e74c3c"/>
+    <circle cx="0" cy="35" r="4" fill="#333"/>
+    <circle cx="0" cy="50" r="4" fill="#3498db"/>
+    <circle cx="0" cy="65" r="4" fill="#2ecc71"/>
+
+    <text x="-5" y="24" text-anchor="end" class="pin-label">VCC</text>
+    <text x="-5" y="39" text-anchor="end" class="pin-label">GND</text>
+    <text x="-5" y="54" text-anchor="end" class="pin-label">SDA</text>
+    <text x="-5" y="69" text-anchor="end" class="pin-label">SCL</text>
+  </g>
+
+  <!-- HMC5883L Sensor 3 -->
+  <g transform="translate(520, 280)">
+    <rect x="0" y="0" width="100" height="80" class="component" rx="5"/>
+    <rect x="10" y="10" width="80" height="25" class="chip" rx="3"/>
+    <text x="50" y="27" text-anchor="middle" fill="#fff" class="label">HMC5883L</text>
+    <text x="50" y="50" text-anchor="middle" class="pin-label">Sensor #3</text>
+    <text x="50" y="65" text-anchor="middle" class="pin-label">Reference</text>
+
+    <circle cx="0" cy="20" r="4" fill="#e74c3c"/>
+    <circle cx="0" cy="35" r="4" fill="#333"/>
+    <circle cx="0" cy="50" r="4" fill="#3498db"/>
+    <circle cx="0" cy="65" r="4" fill="#2ecc71"/>
+
+    <text x="-5" y="24" text-anchor="end" class="pin-label">VCC</text>
+    <text x="-5" y="39" text-anchor="end" class="pin-label">GND</text>
+    <text x="-5" y="54" text-anchor="end" class="pin-label">SDA</text>
+    <text x="-5" y="69" text-anchor="end" class="pin-label">SCL</text>
+  </g>
+
+  <!-- SD Card Module -->
+  <g transform="translate(50, 400)">
+    <rect x="0" y="0" width="120" height="100" class="component" rx="5"/>
+    <rect x="10" y="10" width="100" height="25" class="chip" rx="3"/>
+    <text x="60" y="27" text-anchor="middle" fill="#fff" class="label">SD Card</text>
+    <text x="60" y="50" text-anchor="middle" class="pin-label">Module</text>
+
+    <text x="125" y="60" class="pin-label">CS (Pin 4)</text>
+    <text x="125" y="75" class="pin-label">MOSI (11)</text>
+    <text x="125" y="90" class="pin-label">MISO (12)</text>
+    <text x="125" y="105" class="pin-label">SCK (13)</text>
+
+    <circle cx="120" cy="56" r="4" fill="#9b59b6"/>
+    <circle cx="120" cy="71" r="4" fill="#9b59b6"/>
+    <circle cx="120" cy="86" r="4" fill="#9b59b6"/>
+    <circle cx="120" cy="101" r="4" fill="#9b59b6"/>
+  </g>
+
+  <!-- Wiring: Arduino to Multiplexer -->
+  <!-- 3.3V -->
+  <path d="M170 216 L200 216 L200 196 L280 196" class="wire-power"/>
+  <!-- GND -->
+  <path d="M170 236 L210 236 L210 216 L280 216" class="wire-ground"/>
+  <!-- SDA -->
+  <path d="M170 256 L220 256 L220 236 L280 236" class="wire-sda"/>
+  <!-- SCL -->
+  <path d="M170 276 L230 276 L230 256 L280 256" class="wire-scl"/>
+
+  <!-- Wiring: Multiplexer to Sensor 1 (Ch0) -->
+  <!-- SDA -->
+  <path d="M420 196 L460 196 L460 110 L520 110" class="wire-sda"/>
+  <!-- SCL -->
+  <path d="M420 206 L470 206 L470 125 L520 125" class="wire-scl"/>
+  <!-- Power bus -->
+  <path d="M200 196 L200 80 L520 80" class="wire-power"/>
+  <path d="M210 216 L210 95 L520 95" class="wire-ground"/>
+
+  <!-- Wiring: Multiplexer to Sensor 2 (Ch1) -->
+  <!-- SDA -->
+  <path d="M420 226 L450 226 L450 220 L520 220" class="wire-sda"/>
+  <!-- SCL -->
+  <path d="M420 236 L445 236 L445 235 L520 235" class="wire-scl"/>
+  <!-- Power continues -->
+  <path d="M480 80 L480 190 L520 190" class="wire-power"/>
+  <path d="M485 95 L485 205 L520 205" class="wire-ground"/>
+
+  <!-- Wiring: Multiplexer to Sensor 3 (Ch2) -->
+  <!-- SDA -->
+  <path d="M420 256 L440 256 L440 330 L520 330" class="wire-sda"/>
+  <!-- SCL -->
+  <path d="M420 266 L435 266 L435 345 L520 345" class="wire-scl"/>
+  <!-- Power continues -->
+  <path d="M480 190 L480 300 L520 300" class="wire-power"/>
+  <path d="M485 205 L485 315 L520 315" class="wire-ground"/>
+
+  <!-- Pull-up resistors notation -->
+  <g transform="translate(240, 280)">
+    <rect x="0" y="0" width="80" height="40" fill="#fffde7" stroke="#f9a825" rx="3"/>
+    <text x="40" y="15" text-anchor="middle" class="pin-label">4.7kΩ pull-ups</text>
+    <text x="40" y="30" text-anchor="middle" class="pin-label">SDA + SCL to 3.3V</text>
+  </g>
+
+  <!-- Notes section -->
+  <g transform="translate(300, 420)">
+    <rect x="0" y="0" width="280" height="130" fill="#e3f2fd" stroke="#1976d2" rx="5"/>
+    <text x="140" y="20" text-anchor="middle" class="label" font-weight="bold">Wiring Notes</text>
+    <text x="10" y="40" class="pin-label">• Use shielded cable for sensor connections</text>
+    <text x="10" y="55" class="pin-label">• Connect shield to GND at Arduino end only</text>
+    <text x="10" y="70" class="pin-label">• Add ferrite beads on sensor cables</text>
+    <text x="10" y="85" class="pin-label">• Keep I²C wires short (&lt;50cm)</text>
+    <text x="10" y="100" class="pin-label">• A0-A2 on TCA9548A → GND for addr 0x70</text>
+    <text x="10" y="115" class="pin-label">• Sensors: 0x1E (HMC) or 0x0D (QMC)</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="400" y="580" text-anchor="middle" class="pin-label">Pais Effect Demonstrator - Sensor Wiring Diagram v1.0</text>
+</svg>
